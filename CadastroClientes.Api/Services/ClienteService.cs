@@ -79,5 +79,9 @@ public class ClienteService : IClienteService
 
         _cacheService.Remover("clientes");
     }
-   
+    public string Teste()
+    {
+        return 123;
+    }
+
 }
