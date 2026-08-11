@@ -21,8 +21,8 @@ public class ClienteServiceTests
             cache.Object,
             notificacao.Object);
 
-        // service.Should().NotBeNull();
-        service.Should().BeNull();
+        service.Should().NotBeNull();
+       
     }
     [Fact]
     public async Task Deve_Chamar_Repository_Ao_Adicionar()
