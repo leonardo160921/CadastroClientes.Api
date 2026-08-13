@@ -1,4 +1,4 @@
-name: CadastroClientes - CI - Artifact - Aula 62
+name: CadastroClientes - CI - Artifact
 
 on:
   push:
