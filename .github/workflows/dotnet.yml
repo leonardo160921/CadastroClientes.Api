@@ -1,4 +1,4 @@
-name: CadastroClientes - CI
+name: CadastroClientes - CI - Artifact - Aula 62
 
 on:
   push:
@@ -32,3 +32,12 @@ jobs:
 
       - name: Test
         run: dotnet test --no-build --verbosity normal
+
+      - name: Publish
+        run: dotnet publish -c Release -o ./publish
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CadastroClientes-API
+          path: ./publish
