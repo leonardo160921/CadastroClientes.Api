@@ -140,4 +140,5 @@ public class ClientesController : ControllerBase
 
         return NoContent();
     }
+    //Testando a regra da main
 }
