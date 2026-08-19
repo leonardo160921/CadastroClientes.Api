@@ -141,4 +141,6 @@ public class ClientesController : ControllerBase
         return NoContent();
     }
     //Testando a regra da main
+    // Aula 65 - CI obrigatório antes do Merge
+
 }
