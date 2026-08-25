@@ -42,6 +42,7 @@ builder.Services.Configure<JwtOptions>(
 //RabbitMq
 builder.Services.Configure<RabbitMqOptions>(
     builder.Configuration.GetSection("RabbitMq"));
+builder.Services.AddSingleton<IRabbitMqService, RabbitMqService>();
 
 // Versionamento da API
 builder.Services.AddApiVersioning(options =>

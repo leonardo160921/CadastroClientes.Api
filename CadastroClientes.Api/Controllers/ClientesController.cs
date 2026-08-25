@@ -21,6 +21,7 @@ public class ClientesController : ControllerBase
     private readonly SistemaOptions _sistema;
     private readonly IMapper _mapper;
     IRabbitMqService rabbitMqService;
+    private readonly IRabbitMqService _rabbitMqService;
 
 
     public ClientesController(
@@ -144,7 +145,7 @@ public class ClientesController : ControllerBase
 
         return NoContent();
     }
-    private readonly IRabbitMqService _rabbitMqService;
+    
     [HttpGet("teste-rabbitmq")]
     public async Task<IActionResult> TestarRabbitMq()
     {
