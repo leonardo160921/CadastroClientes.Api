@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CadastroClientes.Api.Controllers;
 using CadastroClientes.Api.DTOs;
+using CadastroClientes.Api.Messaging;
 using CadastroClientes.Api.Models;
 using CadastroClientes.Api.Options;
 using CadastroClientes.Api.Services;
@@ -17,6 +18,7 @@ public class ClientesControllerTests
     private readonly Mock<IClienteService> _service;
     private readonly Mock<ILogger<ClientesController>> _logger;
     private readonly Mock<IMapper> _mapper;
+    private readonly Mock<IRabbitMqService> _rabbitMqService;
 
     private readonly ClientesController _controller;
 
@@ -25,6 +27,7 @@ public class ClientesControllerTests
         _service = new Mock<IClienteService>();
         _logger = new Mock<ILogger<ClientesController>>();
         _mapper = new Mock<IMapper>();
+        _rabbitMqService = new Mock<IRabbitMqService>();
 
         var options = Options.Create(new SistemaOptions
         {
@@ -37,8 +40,10 @@ public class ClientesControllerTests
             _service.Object,
             _logger.Object,
             options,
-            _mapper.Object);
+            _mapper.Object,
+            _rabbitMqService.Object);
     }
+
     [Fact]
     public async Task ObterPorId_Deve_Retornar_Ok()
     {
@@ -69,6 +74,7 @@ public class ClientesControllerTests
         // Assert
         resultado.Should().BeOfType<OkObjectResult>();
     }
+
     [Fact]
     public async Task ObterPorId_Deve_Retornar_NotFound()
     {
@@ -82,6 +88,7 @@ public class ClientesControllerTests
         // Assert
         resultado.Should().BeOfType<NotFoundResult>();
     }
+
     [Fact]
     public async Task Cadastrar_Deve_Retornar_CreatedAtAction()
     {
@@ -124,6 +131,7 @@ public class ClientesControllerTests
         // Assert
         resultado.Should().BeOfType<CreatedAtActionResult>();
     }
+
     [Fact]
     public async Task Atualizar_Deve_Retornar_Ok()
     {
@@ -165,6 +173,7 @@ public class ClientesControllerTests
         // Assert
         resultado.Should().BeOfType<OkObjectResult>();
     }
+
     [Fact]
     public async Task Excluir_Deve_Retornar_NoContent()
     {
@@ -184,5 +193,4 @@ public class ClientesControllerTests
         // Assert
         resultado.Should().BeOfType<NoContentResult>();
     }
-
 }

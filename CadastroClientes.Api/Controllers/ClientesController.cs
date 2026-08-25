@@ -6,6 +6,7 @@ using CadastroClientes.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using AutoMapper;
+using CadastroClientes.Api.Messaging;
 
 namespace CadastroClientes.Api.Controllers;
 
@@ -19,18 +20,22 @@ public class ClientesController : ControllerBase
     private readonly ILogger<ClientesController> _logger;
     private readonly SistemaOptions _sistema;
     private readonly IMapper _mapper;
+    IRabbitMqService rabbitMqService;
+    private readonly IRabbitMqService _rabbitMqService;
 
 
     public ClientesController(
-    IClienteService service,
-    ILogger<ClientesController> logger,
-    IOptions<SistemaOptions> options,
-    IMapper mapper)
+        IClienteService service,
+        ILogger<ClientesController> logger,
+        IOptions<SistemaOptions> options,
+        IMapper mapper,
+        IRabbitMqService rabbitMqService)
     {
         _service = service;
         _logger = logger;
         _sistema = options.Value;
         _mapper = mapper;
+        _rabbitMqService = rabbitMqService;
     }
 
     [HttpGet]
@@ -140,7 +145,12 @@ public class ClientesController : ControllerBase
 
         return NoContent();
     }
-    //Testando a regra da main
-    // Aula 65 - CI obrigatório antes do Merge
+    
+    [HttpGet("teste-rabbitmq")]
+    public async Task<IActionResult> TestarRabbitMq()
+    {
+        await _rabbitMqService.PublicarAsync("Teste RabbitMQ");
 
+        return Ok("RabbitMQ conectado com sucesso.");
+    }
 }
