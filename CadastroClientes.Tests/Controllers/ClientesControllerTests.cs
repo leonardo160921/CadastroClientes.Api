@@ -27,6 +27,7 @@ public class ClientesControllerTests
         _service = new Mock<IClienteService>();
         _logger = new Mock<ILogger<ClientesController>>();
         _mapper = new Mock<IMapper>();
+        _rabbitMqService = new Mock<IRabbitMqService>();
 
         var options = Options.Create(new SistemaOptions
         {
@@ -36,12 +37,13 @@ public class ClientesControllerTests
         });
 
         _controller = new ClientesController(
-        _service.Object,
-        _logger.Object,
-        options,
-        _mapper.Object,
-        _rabbitMqService.Object);
+            _service.Object,
+            _logger.Object,
+            options,
+            _mapper.Object,
+            _rabbitMqService.Object);
     }
+
     [Fact]
     public async Task ObterPorId_Deve_Retornar_Ok()
     {
@@ -72,6 +74,7 @@ public class ClientesControllerTests
         // Assert
         resultado.Should().BeOfType<OkObjectResult>();
     }
+
     [Fact]
     public async Task ObterPorId_Deve_Retornar_NotFound()
     {
@@ -85,6 +88,7 @@ public class ClientesControllerTests
         // Assert
         resultado.Should().BeOfType<NotFoundResult>();
     }
+
     [Fact]
     public async Task Cadastrar_Deve_Retornar_CreatedAtAction()
     {
@@ -127,6 +131,7 @@ public class ClientesControllerTests
         // Assert
         resultado.Should().BeOfType<CreatedAtActionResult>();
     }
+
     [Fact]
     public async Task Atualizar_Deve_Retornar_Ok()
     {
@@ -168,6 +173,7 @@ public class ClientesControllerTests
         // Assert
         resultado.Should().BeOfType<OkObjectResult>();
     }
+
     [Fact]
     public async Task Excluir_Deve_Retornar_NoContent()
     {
@@ -187,5 +193,4 @@ public class ClientesControllerTests
         // Assert
         resultado.Should().BeOfType<NoContentResult>();
     }
-
 }
