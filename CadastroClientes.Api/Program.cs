@@ -15,6 +15,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using CadastroClientes.Api.Health;
+using CadastroClientes.Api.Messaging;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,6 +37,11 @@ builder.Services.Configure<SistemaOptions>(
 
 builder.Services.Configure<JwtOptions>(
     builder.Configuration.GetSection("Jwt"));
+
+
+//RabbitMq
+builder.Services.Configure<RabbitMqOptions>(
+    builder.Configuration.GetSection("RabbitMq"));
 
 // Versionamento da API
 builder.Services.AddApiVersioning(options =>
